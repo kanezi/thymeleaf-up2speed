@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-th-fragment="layout(activeMenu, content)">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic</title>
+
+    <div data-th-replace="~{fragments/css_js::include_header_files}"></div>
+
+</head>
+<body>
+<div class="ui padded container segment">
+
+    <div data-th-replace="~{fragments/menu::main_menu(${activeMenu})}"></div>
+
+    <div class="ui basic segment" data-th-insert="${content}">
+
+    </div>
+
+</div>
+<script data-th-if="${toastMessage}" data-th-inline="javascript">
+
+let msg = /*[[${toastMessage}]]*/'';
+
+$.toast({
+  message: msg
+});
+</script>
+</body>
+</html>

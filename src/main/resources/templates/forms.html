@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{fragments/skeleton::layout('forms', ~{::content_fragment})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+</head>
+<body>
+<div>
+
+    <div data-th-fragment="content_fragment">
+        <form class="ui segment form"
+              data-th-classappend="${#fields.hasAnyErrors() ? 'error' : ''}"
+              method="post"
+              data-th-action="@{/forms}"
+              data-th-object="${messageForm}"
+        >
+            <div class="field" data-th-classappend="${#fields.hasErrors('message') ? 'error' : ''}">
+                <input type="text" data-th-field="*{message}"/>
+                <div data-th-if="${#fields.hasErrors('message')}"
+                     class="ui basic red pointing prompt label">
+                    <p data-th-errors="*{message}"></p>
+                </div>
+            </div>
+
+            <div class="field">
+                <input class="ui button" type="submit" value="submit"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

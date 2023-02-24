@@ -1,12 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{fragments/skeleton::layout('basic', ~{::#basic_content})}">
 <head>
     <meta charset="UTF-8">
     <title>Basic</title>
+
 </head>
 <body>
-<div>
-  <h1>Welcome1</h1>
+<div id="basic_content">
+
+    <div>
+        <h1>Interpolation</h1>
+        <p>2 + 2 is <strong data-th-text="${2 + 2}">4</strong></p>
+        <p data-th-text="|2 + 3 is ${2 + 3}|">5</p>
+        <p data-th-text="${message}">Welcome</p>
+        <p>[[${message}]]</p>
+    </div>
+    <div>
+        <h2>Conditionals</h2>
+        <p>random is <span data-th-text="${intTo10}">7</span></p>
+        <p data-th-if="${intTo10 <= 5}">Random was less the 5</p>
+        <p data-th-unless="${intTo10 <= 5}">Random was greater the 5</p>
+    </div>
+    <div>
+        <h2>Iterations</h2>
+
+        <p>currently have <span data-th-text="${#lists.size(greats)}">4</span> greats</p>
+        <p>currently have <span data-th-text="${#lists.size(greats.?[#this.startsWith('A')])}">2</span> greats start
+            with A</p>
+
+        <ul data-th-remove="all-but-first" class="ui divided list">
+            <li class="item" data-th-each="great : ${greats}" data-th-text="${great}">Ada</li>
+            <li class="item">Isaac</li>
+            <li class="item">Alan</li>
+        </ul>
+
+        <p>days of the week</p>
+
+        <ul>
+            <li data-th-each="day : ${#numbers.sequence(1, 7)}" data-th-text="${T(java.time.DayOfWeek).of(day)}">
+                MONDAY
+            </li>
+        </ul>
+
+    </div>
+
+    <div>
+        <h2>Objects</h2>
+
+        <p data-th-text="${post}"></p>
+        <p data-th-text="${post.author}"></p>
+
+        <div data-th-object="${post}">
+            <p data-th-text="*{content}"></p>
+
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
